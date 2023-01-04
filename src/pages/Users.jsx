@@ -1,8 +1,11 @@
 import React from 'react'
+import TaskList from '../components/TaskList'
 
 function Users() {
   return (
-    <div>Estoy en la pagina Users</div>
+    <div>
+      <TaskList />
+    </div>
   )
 }
 
