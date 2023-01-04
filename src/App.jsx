@@ -13,32 +13,19 @@ import { Landing } from "./pages"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import Analitycs from "./pages/Analitycs"
 import Admin from "./pages/Admin"
+import { Login } from "./components/Login"
+import { Register } from "./components/Register"
 
 function App() {
-  const [user, setUser] = useState(null)
-
-  const login = () => {
-    setUser({ id: 1, name: "elias", permissions: ["admin"] })
-  }
-
-  const logout = () => {
-    setUser(null)
-  }
-
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-200 to-green-500">
+    <main className="min-h-screen bg-gradient-to-b from-gray-200 to-gray-500">
       <div className="container mx-auto">
         <BrowserRouter basename="/react-tasks-app/">
-          <NavBar />
-          {user ? (
-            <button onClick={logout}>Logout</button>
-          ) : (
-            <button onClick={login}>Login</button>
-          )}
+          {/* <NavBar /> */}
           <Routes>
             <Route index path="/" element={<Landing />} />
             <Route path="/landing" element={<Landing />} />
-            <Route element={<ProtectedRoute isAllowed={!!user} />}>
+            <Route element={<ProtectedRoute />}>
               <Route path="/home" element={<Home />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="welcome" element={<p>welcome</p>} />
@@ -49,7 +36,9 @@ function App() {
               <Route path="/usuarios" element={<Navigate to="/users" />} />
               <Route path="/users/:id" element={<UserPage />} />
             </Route>
-            <Route
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            {/* <Route
               path="/analitycs"
               element={
                 <ProtectedRoute
@@ -59,9 +48,9 @@ function App() {
                   <Analitycs />
                 </ProtectedRoute>
               }
-            />
+            /> */}
 
-            <Route
+            {/* <Route
               path="/admin"
               element={
                 <ProtectedRoute
@@ -72,7 +61,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route />
+            <Route /> */}
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
