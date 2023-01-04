@@ -8,23 +8,71 @@ import About from "./pages/About"
 import Users from "./pages/Users"
 import UserPage from "./pages/UsersPage"
 import Dashboard from "./pages/Dashboard"
+import { useState } from "react"
+import { Landing } from "./pages"
+import { ProtectedRoute } from "./components/ProtectedRoute"
+import Analitycs from "./pages/Analitycs"
+import Admin from "./pages/Admin"
 
 function App() {
+  const [user, setUser] = useState(null)
+
+  const login = () => {
+    setUser({ id: 1, name: "elias", permissions: ["admin"] })
+  }
+
+  const logout = () => {
+    setUser(null)
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-200 to-green-500">
       <div className="container mx-auto">
         <BrowserRouter basename="/react-tasks-app/">
           <NavBar />
+          {user ? (
+            <button onClick={logout}>Logout</button>
+          ) : (
+            <button onClick={login}>Login</button>
+          )}
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/usuarios" element={<Navigate to="/users" />} />
-            <Route path="/users/:id" element={<UserPage />} />
-            <Route path="/dashboard/*" element={<Dashboard />}>
-              <Route path="welcome" element={<p>welcome</p>} />
-              <Route path="goodbye" element={<p>goodbye</p>} />
+            <Route index path="/" element={<Landing />} />
+            <Route path="/landing" element={<Landing />} />
+            <Route element={<ProtectedRoute isAllowed={!!user} />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/dashboard/*" element={<Dashboard />}>
+                <Route path="welcome" element={<p>welcome</p>} />
+                <Route path="goodbye" element={<p>goodbye</p>} />
+              </Route>
+              <Route path="/about" element={<About />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/usuarios" element={<Navigate to="/users" />} />
+              <Route path="/users/:id" element={<UserPage />} />
             </Route>
+            <Route
+              path="/analitycs"
+              element={
+                <ProtectedRoute
+                  isAllowed={!!user && user.permissions.includes("analize")}
+                  redirectTo="/home"
+                >
+                  <Analitycs />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute
+                  isAllowed={!!user && user.permissions.includes("admin")}
+                  redirectTo="/dashboard"
+                >
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

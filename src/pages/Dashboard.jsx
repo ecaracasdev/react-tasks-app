@@ -8,7 +8,7 @@ function Dashboard() {
 
   return (
     <div>
-      <button onClick={handleClick}>Logout</button>
+      <button onClick={handleClick}>go to landing</button>
       <br/>
       <Link to="welcome">say welcome</Link>
       <br/>
