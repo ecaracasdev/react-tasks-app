@@ -1,14 +1,18 @@
-import { Link, Navigate } from "react-router-dom"
-import TaskForm from "../components/TaskForm"
+import { useAuth } from "../context/AuthContext"
 
-const userId = 100
+function Home() {
+  const { user, logout, loading } = useAuth()
 
-function Home({ user }) {
+  const handleClick = async () => {
+    await logout()
+  }
+
+  if (loading) return <h1>loading...</h1>
+
   return (
     <div>
-      <h1>App</h1>
-      <TaskForm />
-      {/* <Link to={`/users/${userId}`}>Users</Link> */}
+      <h1>{user.email}</h1>
+      <button onClick={handleClick}>Logout</button>
     </div>
   )
 }

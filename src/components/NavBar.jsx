@@ -15,7 +15,7 @@ function NavBar() {
                 home
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "active" : "")}
                 to="/about"
@@ -54,7 +54,7 @@ function NavBar() {
               >
                 admin
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
