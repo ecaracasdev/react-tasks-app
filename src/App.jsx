@@ -23,8 +23,12 @@ function App() {
         <BrowserRouter basename="/react-tasks-app/">
           {/* <NavBar /> */}
           <Routes>
-            <Route index path="/" element={<Landing />} />
-            <Route path="/landing" element={<Landing />} />
+            {/* <Route index path="/" element={<Landing />} />
+            <Route path="/landing" element={<Landing />} /> */}
+            <Route index path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="/register" element={<Register />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/home" element={<Home />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
@@ -36,8 +40,6 @@ function App() {
               <Route path="/usuarios" element={<Navigate to="/users" />} />
               <Route path="/users/:id" element={<UserPage />} />
             </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
             {/* <Route
               path="/analitycs"
               element={

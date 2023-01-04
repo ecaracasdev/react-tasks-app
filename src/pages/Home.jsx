@@ -1,3 +1,4 @@
+import TaskForm from "../components/TaskForm"
 import { useAuth } from "../context/AuthContext"
 
 function Home() {
@@ -13,6 +14,7 @@ function Home() {
     <div>
       <h1>{user.email}</h1>
       <button onClick={handleClick}>Logout</button>
+      <TaskForm />
     </div>
   )
 }
