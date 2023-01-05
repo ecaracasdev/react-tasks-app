@@ -10,11 +10,10 @@ export const Login = () => {
   })
   const [error, setError] = useState(null)
 
-  const { login, loginWithGoogle } = useAuth()
+  const { login, loginWithGoogle, resetPassword } = useAuth()
   const navigate = useNavigate()
 
   const handleChange = ({ target: { name, value } }) => {
-    
     setUser({ ...user, [name]: value })
   }
 
@@ -38,9 +37,19 @@ export const Login = () => {
     }
   }
 
+  const handleResetPassword = async () => {
+    if (!user.email) return setError("por favor ingresa tu email")
+    try {
+      await resetPassword(user.email)
+      setError("enviamos un enlace para recuperar la clave")
+    } catch (error) {
+      setError(error.message)
+      console.error(error)
+    }
+  }
+
   return (
     <div>
-      
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl lg:max-w-xl">
           <h1 className="text-3xl font-semibold text-center text-purple-700 uppercase">
@@ -76,9 +85,12 @@ export const Login = () => {
                 onChange={handleChange}
               />
             </div>
-            <a href="#" className="text-xs text-purple-600 hover:underline">
+            <Link
+              className="text-xs text-purple-600 hover:underline"
+              to="/resetPassword"
+            >
               Forget Password?
-            </a>
+            </Link>
             <div className="mt-6">
               <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
                 Login
@@ -135,9 +147,12 @@ export const Login = () => {
           <p className="mt-8 text-xs font-light text-center text-gray-700">
             {" "}
             Don't have an account?{" "}
-            <a href="#" className="font-medium text-purple-600 hover:underline">
-              <Link to="/register">Sign Up</Link>
-            </a>
+            <Link
+              className="font-medium text-purple-600 hover:underline"
+              to="/register"
+            >
+              Sign Up
+            </Link>
           </p>
         </div>
       </div>
