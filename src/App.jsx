@@ -15,6 +15,7 @@ import Analitycs from "./pages/Analitycs"
 import Admin from "./pages/Admin"
 import { Login } from "./components/Login"
 import { Register } from "./components/Register"
+import { ResetPassword } from "./components/ResetPassword"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/register" element={<Register />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/home" element={<Home />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
